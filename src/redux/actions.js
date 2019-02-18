@@ -1,6 +1,8 @@
+const types = {dummy: 'DUMMY'};
+
 export function dummyFunction(dummy) {
   return {
-    type: 'DUMMY',
-    dummy
+    type: types.dummy,
+    payload: dummy
   };
 }
