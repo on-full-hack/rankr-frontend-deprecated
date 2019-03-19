@@ -1,5 +1,5 @@
 import Types from 'MyTypes';
-import Main from './Main';
+import {Main} from './screens/Main';
 import {connect} from 'react-redux';
 import * as actions from './redux/counter/actions';
 
