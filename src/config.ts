@@ -2,7 +2,7 @@
 // tokenType = Bearer
 
 export const config = {
-  api_url: 'https://192.168.1.10:8443',
-  login_url: '/user/login',
-  register_url: '/user/register'
+  api_url: 'http://192.168.1.17:8080',
+  login_url: '/login',
+  register_url: '/sign-up'
 };

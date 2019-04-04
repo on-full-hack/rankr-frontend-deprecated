@@ -35,13 +35,28 @@ export const Login: React.FC<ComponentProps> = props => {
   const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState('');
 
-  const loginto = () => {
+  const handleSignup = async () => {
+    try {
+      const result = await axios.post(
+        `${config.api_url}${config.register_url}`,
+        {
+          username: login,
+          password: password
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleLogin = () => {
     axios
       .post(`${config.api_url}${config.login_url}`, {
-        usernameOrEmail: login,
+        username: login,
         password: password
       })
       .then(res => {
+        console.log('res: ', res);
         setErrorText('');
         localStorage.setItem('token', res.data.accessToken);
         props.history.push('/');
@@ -77,7 +92,7 @@ export const Login: React.FC<ComponentProps> = props => {
           />
         </PaddingBox>
         <PaddingBox>
-          <Button fullWidth variant="contained" onClick={loginto}>
+          <Button fullWidth variant="contained" onClick={handleLogin}>
             Sign In
           </Button>
         </PaddingBox>
@@ -85,7 +100,7 @@ export const Login: React.FC<ComponentProps> = props => {
           <div>or</div>
         </PaddingBox>
         <PaddingBox>
-          <Button fullWidth variant="contained">
+          <Button fullWidth variant="contained" onClick={handleSignup}>
             Sign Up
           </Button>
         </PaddingBox>
