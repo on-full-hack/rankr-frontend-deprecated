@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import TextField from '@material-ui/core/TextField';
+import TextField from '../components/TextField';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import {config} from '../config';
@@ -78,7 +78,6 @@ export const Login: React.FC<ComponentProps> = props => {
             id="login"
             label="Login"
             value={login}
-            fullWidth
             onChange={e => setLogin(e.currentTarget.value)}
           />
         </PaddingBox>
@@ -86,7 +85,6 @@ export const Login: React.FC<ComponentProps> = props => {
           <TextField
             label="Password"
             type="password"
-            fullWidth
             value={password}
             onChange={e => setPassword(e.currentTarget.value)}
           />
