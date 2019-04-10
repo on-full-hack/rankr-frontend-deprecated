@@ -13,7 +13,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: #6236ff;
-  padding-top: 20vh;
+  height: 100%;
 `;
 
 const Fields = styled.div`
@@ -23,6 +23,14 @@ const Fields = styled.div`
 
 const PaddingBox = styled.div`
   margin: 2vh 0;
+`;
+
+const Text = styled.div`
+  font-size: 20px;
+  font-family: Courier-new, Courier;
+  color: #fff;
+  display: flex;
+  justify-content: center;
 `;
 
 type Props = {};
@@ -95,7 +103,7 @@ export const Login: React.FC<ComponentProps> = props => {
           </Button>
         </PaddingBox>
         <PaddingBox>
-          <div>or</div>
+          <Text>or</Text>
         </PaddingBox>
         <PaddingBox>
           <Button fullWidth variant="contained" onClick={handleSignup}>
