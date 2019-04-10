@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import TextField from '../components/TextField';
-import Button from '@material-ui/core/Button';
+import Button from '../components/Button';
 import styled from 'styled-components';
 import {config} from '../config';
 import axios from 'axios';
