@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Route, BrowserRouter as Router, Link} from 'react-router-dom';
 import Login from './Login';
+import Signup from './Signup';
 import {ThemeProvider} from '@material-ui/styles';
 import theme from '../theme';
 import styled from 'styled-components';
@@ -14,6 +15,7 @@ export const Main: React.FC = () => (
     <Container>
       <Router>
         <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
       </Router>
     </Container>
   </ThemeProvider>

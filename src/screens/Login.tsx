@@ -43,20 +43,6 @@ export const Login: React.FC<ComponentProps> = props => {
   const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState('');
 
-  const handleSignup = async () => {
-    try {
-      const result = await axios.post(
-        `${config.api_url}${config.register_url}`,
-        {
-          username: login,
-          password: password
-        }
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const handleLogin = () => {
     axios
       .post(`${config.api_url}${config.login_url}`, {
@@ -106,7 +92,11 @@ export const Login: React.FC<ComponentProps> = props => {
           <Text>or</Text>
         </PaddingBox>
         <PaddingBox>
-          <Button fullWidth variant="contained" onClick={handleSignup}>
+          <Button
+            fullWidth
+            variant="contained"
+            onClick={() => props.history.push('/signup')}
+          >
             Sign Up
           </Button>
         </PaddingBox>
