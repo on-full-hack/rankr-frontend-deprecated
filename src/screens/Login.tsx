@@ -2,10 +2,9 @@ import React, {useState} from 'react';
 import TextField from '../components/TextField';
 import Button from '../components/Button';
 import styled from 'styled-components';
-import {config} from '../config';
-import axios from 'axios';
 import {AppTitle} from '../components/AppTitle';
 import {RouteComponentProps} from 'react-router';
+import {API} from '../API';
 
 const Container = styled.div`
   display: flex;
@@ -45,34 +44,22 @@ export const Login: React.FC<ComponentProps> = props => {
 
   const handleSignup = async () => {
     try {
-      const result = await axios.post(
-        `${config.api_url}${config.register_url}`,
-        {
-          username: login,
-          password: password
-        }
-      );
+      const result = await API.signup({username: login, password: password});
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleLogin = () => {
-    axios
-      .post(`${config.api_url}${config.login_url}`, {
-        username: login,
-        password: password
-      })
-      .then(res => {
-        console.log('res: ', res);
-        setErrorText('');
-        localStorage.setItem('token', res.data.accessToken);
-        props.history.push('/');
-      })
-      .catch(err => {
-        setError(true);
-        setErrorText('Username or password incorrect');
-      });
+  const handleLogin = async () => {
+    try {
+      const result = await API.login({username: login, password: password});
+      setErrorText('');
+      localStorage.setItem('token', result.headers.authorization);
+      props.history.push('/');
+    } catch (err) {
+      setError(true);
+      setErrorText('Username or password incorrect');
+    }
   };
 
   return (
