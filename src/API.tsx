@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {string} from 'prop-types';
 
 const api_url = 'http://localhost:8080';
 
@@ -6,8 +7,25 @@ const token = () => {
   return localStorage.getItem('token');
 };
 
+type Credentials = {
+  username: string;
+  password: string;
+};
+
+enum LeagueTypes {
+  PUBLIC,
+  PRIVATE
+}
+
+type League = {
+  name: string;
+  description: string;
+  discipline: string;
+  type: LeagueTypes;
+};
+
 export const API = {
-  signup: async ({username, password}) =>
+  signup: async ({username, password}: Credentials) =>
     await axios.post(
       `${api_url}/sign-up`,
       {
@@ -18,7 +36,7 @@ export const API = {
         headers: {'Content-Type': 'application/json'}
       }
     ),
-  login: async ({username, password}) =>
+  login: async ({username, password}: Credentials) =>
     await axios.post(
       `${api_url}/login`,
       {
@@ -29,7 +47,7 @@ export const API = {
         headers: {'Content-Type': 'application/json'}
       }
     ),
-  createLeague: async ({name, description, discipline, type}) =>
+  createLeague: async ({name, description, discipline, type}: League) =>
     await axios.post(
       `${api_url}/leagues`,
       {
