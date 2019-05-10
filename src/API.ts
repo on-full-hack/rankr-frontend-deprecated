@@ -1,9 +1,8 @@
 import axios from 'axios';
-import {string} from 'prop-types';
 
-const api_url = 'http://localhost:8080';
+const API_URL = 'http://localhost:8080';
 
-const token = () => {
+const getToken = () => {
   return localStorage.getItem('token');
 };
 
@@ -27,10 +26,10 @@ type League = {
 export const API = {
   signup: async ({username, password}: Credentials) =>
     await axios.post(
-      `${api_url}/sign-up`,
+      `${API_URL}/sign-up`,
       {
-        username: username,
-        password: password
+        username,
+        password
       },
       {
         headers: {'Content-Type': 'application/json'}
@@ -38,10 +37,10 @@ export const API = {
     ),
   login: async ({username, password}: Credentials) =>
     await axios.post(
-      `${api_url}/login`,
+      `${API_URL}/login`,
       {
-        username: username,
-        password: password
+        username,
+        password
       },
       {
         headers: {'Content-Type': 'application/json'}
@@ -49,17 +48,17 @@ export const API = {
     ),
   createLeague: async ({name, description, discipline, type}: League) =>
     await axios.post(
-      `${api_url}/leagues`,
+      `${API_URL}/leagues`,
       {
-        name: name,
-        description: description,
-        discipline: discipline,
-        type: type
+        name,
+        description,
+        discipline,
+        type
       },
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `${token()}`
+          Authorization: getToken()
         }
       }
     )
