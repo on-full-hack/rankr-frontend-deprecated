@@ -39,12 +39,11 @@ type ComponentProps = Props & RouteComponentProps;
 export const Login: React.FC<ComponentProps> = props => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState('');
 
   const handleSignup = async () => {
     try {
-      const result = await API.signup({username: login, password: password});
+      const result = await API.signup({username: login, password});
     } catch (err) {
       console.log(err);
     }
@@ -52,12 +51,10 @@ export const Login: React.FC<ComponentProps> = props => {
 
   const handleLogin = async () => {
     try {
-      const result = await API.login({username: login, password: password});
-      setErrorText('');
+      const result = await API.login({username: login, password});
       localStorage.setItem('token', result.headers.authorization);
       props.history.push('/');
     } catch (err) {
-      setError(true);
       setErrorText('Username or password incorrect');
     }
   };
@@ -68,7 +65,7 @@ export const Login: React.FC<ComponentProps> = props => {
       <Fields>
         <PaddingBox>
           <TextField
-            error={error}
+            error={errorText != ''}
             helperText={errorText}
             id="login"
             label="Login"
