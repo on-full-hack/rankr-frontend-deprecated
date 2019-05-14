@@ -2,10 +2,9 @@ import React, {useState} from 'react';
 import TextField from '../components/TextField';
 import Button from '../components/Button';
 import styled from 'styled-components';
-import {config} from '../config';
-import axios from 'axios';
 import {AppTitle} from '../components/AppTitle';
 import {RouteComponentProps} from 'react-router';
+import {API} from '../API';
 
 const Container = styled.div`
   display: flex;
@@ -40,25 +39,24 @@ type ComponentProps = Props & RouteComponentProps;
 export const Login: React.FC<ComponentProps> = props => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState('');
 
-  const handleLogin = () => {
-    axios
-      .post(`${config.api_url}${config.login_url}`, {
-        username: login,
-        password: password
-      })
-      .then(res => {
-        console.log('res: ', res);
-        setErrorText('');
-        localStorage.setItem('token', res.data.accessToken);
-        props.history.push('/');
-      })
-      .catch(err => {
-        setError(true);
-        setErrorText('Username or password incorrect');
-      });
+  const handleSignup = async () => {
+    try {
+      const result = await API.signup({username: login, password});
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      const result = await API.login({username: login, password});
+      localStorage.setItem('token', result.headers.authorization);
+      props.history.push('/');
+    } catch (err) {
+      setErrorText('Username or password incorrect');
+    }
   };
 
   return (
@@ -67,7 +65,7 @@ export const Login: React.FC<ComponentProps> = props => {
       <Fields>
         <PaddingBox>
           <TextField
-            error={error}
+            error={errorText != ''}
             helperText={errorText}
             id="login"
             label="Login"
