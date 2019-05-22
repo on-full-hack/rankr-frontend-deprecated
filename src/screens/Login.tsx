@@ -18,6 +18,10 @@ const Container = styled.div`
 const Fields = styled.div`
   margin: 15vw 0;
   width: 80vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const PaddingBox = styled.div`
@@ -41,14 +45,6 @@ export const Login: React.FC<ComponentProps> = props => {
   const [password, setPassword] = useState('');
   const [errorText, setErrorText] = useState('');
 
-  const handleSignup = async () => {
-    try {
-      const result = await API.signup({username: login, password});
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const handleLogin = async () => {
     try {
       const result = await API.login({username: login, password});
@@ -65,38 +61,27 @@ export const Login: React.FC<ComponentProps> = props => {
       <Fields>
         <PaddingBox>
           <TextField
-            error={errorText != ''}
-            helperText={errorText}
-            id="login"
-            label="Login"
+            placeholder="Login"
             value={login}
             onChange={e => setLogin(e.currentTarget.value)}
           />
         </PaddingBox>
         <PaddingBox>
           <TextField
-            label="Password"
+            placeholder="Password"
             type="password"
             value={password}
             onChange={e => setPassword(e.currentTarget.value)}
           />
         </PaddingBox>
         <PaddingBox>
-          <Button fullWidth variant="contained" onClick={handleLogin}>
-            Sign In
-          </Button>
+          <Button onClick={handleLogin}>Sign In</Button>
         </PaddingBox>
         <PaddingBox>
           <Text>or</Text>
         </PaddingBox>
         <PaddingBox>
-          <Button
-            fullWidth
-            variant="contained"
-            onClick={() => props.history.push('/signup')}
-          >
-            Sign Up
-          </Button>
+          <Button onClick={() => props.history.push('/signup')}>Sign Up</Button>
         </PaddingBox>
       </Fields>
     </Container>

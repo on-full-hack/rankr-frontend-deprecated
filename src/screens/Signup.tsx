@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import TextField from '../components/TextField';
 import Button from '../components/Button';
 import styled from 'styled-components';
-import {config} from '../config';
+import {API} from '../API';
 import axios from 'axios';
 import {AppTitle} from '../components/AppTitle';
 import {RouteComponentProps} from 'react-router';
@@ -21,7 +21,8 @@ const Fields = styled.div`
   width: 80vw;
   height: 25%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 `;
 
@@ -49,13 +50,11 @@ export const Signup: React.FC<ComponentProps> = props => {
 
   const handleSignup = async () => {
     try {
-      const result = await axios.post(
-        `${config.api_url}${config.register_url}`,
-        {
-          username: login,
-          password: password
-        }
-      );
+      const result = await API.signup({username: login, password});
+      console.log('result: ', result);
+      if (result.status === 201) {
+        props.history.push('/login');
+      }
     } catch (err) {
       console.log(err);
     }
@@ -66,22 +65,17 @@ export const Signup: React.FC<ComponentProps> = props => {
       <AppTitle>rankr</AppTitle>
       <Fields>
         <TextField
-          error={error}
-          helperText={errorText}
-          id="login"
-          label="Login"
+          placeholder="Login"
           value={login}
           onChange={e => setLogin(e.currentTarget.value)}
         />
         <TextField
-          label="Password"
+          placeholder="Password"
           type="password"
           value={password}
           onChange={e => setPassword(e.currentTarget.value)}
         />
-        <Button fullWidth variant="contained" onClick={handleSignup}>
-          Sign Up
-        </Button>
+        <Button onClick={handleSignup}>Sign Up</Button>
       </Fields>
     </Container>
   );

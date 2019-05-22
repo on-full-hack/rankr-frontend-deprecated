@@ -1,19 +1,19 @@
-import * as React from 'react';
-import TextFieldMUI, {TextFieldProps} from '@material-ui/core/TextField';
+import React from 'react';
 import styled from 'styled-components';
 
-const StyledTextField = styled(TextFieldMUI)`
-  input {
-    color: #fff;
-    border-color: #fff !important;
-  }
-  label {
-    color: #fff !important;
-  }
+type Props = {
+  value: string;
+  onChange: (event: React.FormEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  type?: string;
+};
+
+const StyledTextField = styled.input`
+  color: '#fff';
 `;
 
-const TextField: React.FC<TextFieldProps> = props => (
-  <StyledTextField {...props} fullWidth />
+export const TextField: React.FC<Props> = props => (
+  <StyledTextField {...props} />
 );
 
 export default TextField;

@@ -1,8 +1,9 @@
-import ButtonMUI from '@material-ui/core/Button';
 import styled from 'styled-components';
 
-export default styled(ButtonMUI)`
+export default styled.button`
   background-color: #f50057 !important;
-  height: 48px;
   color: #fff !important;
+  font-size: 20px;
+  padding: 20px;
+  min-height: 62px;
 `;
