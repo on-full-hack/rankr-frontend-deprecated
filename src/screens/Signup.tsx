@@ -2,9 +2,10 @@ import React, {useState} from 'react';
 import TextField from '../components/TextField';
 import Button from '../components/Button';
 import styled from 'styled-components';
+import {API} from '../API';
+import axios from 'axios';
 import {AppTitle} from '../components/AppTitle';
 import {RouteComponentProps} from 'react-router';
-import {API} from '../API';
 
 const Container = styled.div`
   display: flex;
@@ -18,6 +19,7 @@ const Container = styled.div`
 const Fields = styled.div`
   margin: 15vw 0;
   width: 80vw;
+  height: 25%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,18 +42,21 @@ type Props = {};
 
 type ComponentProps = Props & RouteComponentProps;
 
-export const Login: React.FC<ComponentProps> = props => {
+export const Signup: React.FC<ComponentProps> = props => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState('');
 
-  const handleLogin = async () => {
+  const handleSignup = async () => {
     try {
-      const result = await API.login({username: login, password});
-      localStorage.setItem('token', result.headers.authorization);
-      props.history.push('/');
+      const result = await API.signup({username: login, password});
+      console.log('result: ', result);
+      if (result.status === 201) {
+        props.history.push('/login');
+      }
     } catch (err) {
-      setErrorText('Username or password incorrect');
+      console.log(err);
     }
   };
 
@@ -59,33 +64,21 @@ export const Login: React.FC<ComponentProps> = props => {
     <Container>
       <AppTitle>rankr</AppTitle>
       <Fields>
-        <PaddingBox>
-          <TextField
-            placeholder="Login"
-            value={login}
-            onChange={e => setLogin(e.currentTarget.value)}
-          />
-        </PaddingBox>
-        <PaddingBox>
-          <TextField
-            placeholder="Password"
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.currentTarget.value)}
-          />
-        </PaddingBox>
-        <PaddingBox>
-          <Button onClick={handleLogin}>Sign In</Button>
-        </PaddingBox>
-        <PaddingBox>
-          <Text>or</Text>
-        </PaddingBox>
-        <PaddingBox>
-          <Button onClick={() => props.history.push('/signup')}>Sign Up</Button>
-        </PaddingBox>
+        <TextField
+          placeholder="Login"
+          value={login}
+          onChange={e => setLogin(e.currentTarget.value)}
+        />
+        <TextField
+          placeholder="Password"
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.currentTarget.value)}
+        />
+        <Button onClick={handleSignup}>Sign Up</Button>
       </Fields>
     </Container>
   );
 };
 
-export default Login;
+export default Signup;

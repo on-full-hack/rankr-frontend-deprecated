@@ -938,8 +938,8 @@
     "@types/react" "*"
 
 "@types/react-native@*":
-  version "0.57.41"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.41.tgz#bf355f38d8cfe5eac68de977e210ae0805cd053a"
+  version "0.57.59"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.59.tgz#84d634dc95932c2fa9f16c229fb891af1bd3c28f"
   dependencies:
     "@types/prop-types" "*"
     "@types/react" "*"
@@ -986,9 +986,9 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/styled-components@^4.1.12":
-  version "4.1.12"
-  resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-4.1.12.tgz#62c19bd1aa37b1a904d36c179a0fec66c24ac99c"
+"@types/styled-components@^4.1.15":
+  version "4.1.15"
+  resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-4.1.15.tgz#532b6738ec633b2911e0470522c23e3c658952f2"
   dependencies:
     "@types/react" "*"
     "@types/react-native" "*"
