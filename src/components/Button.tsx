@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import {styled} from '../theme';
 
 export default styled.button`
-  background-color: #f50057 !important;
-  color: #fff !important;
+  background-color: ${props => props.theme.palette.primary.main};
+  color: #fff;
   font-size: 20px;
   padding: 20px;
   min-height: 62px;
