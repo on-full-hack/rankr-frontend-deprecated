@@ -2,12 +2,9 @@ import baseStyled, {ThemedStyledInterface} from 'styled-components';
 
 export const theme = {
   palette: {
-    primary: {
-      main: '#6236ff'
-    },
-    secondary: {
-      main: '#ffffff'
-    }
+    primary: '#6236ff',
+    secondary: '#ffffff',
+    focus: '#c2185b'
   }
 };
 

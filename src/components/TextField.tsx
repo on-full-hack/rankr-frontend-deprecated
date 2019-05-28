@@ -1,19 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
+import {styled} from '../theme';
 
-type Props = {
-  value: string;
-  onChange: (event: React.FormEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  type?: string;
-};
-
-const StyledTextField = styled.input`
-  color: '#fff';
+const TextField = styled.input`
+  color: black;
+  padding: 10px 5px;
+  border: none;
+  text-align: center;
+  border: 2px solid transparent;
+  :focus {
+    outline: none;
+    border: 2px solid ${props => props.theme.palette.focus};
+  }
 `;
-
-export const TextField: React.FC<Props> = props => (
-  <StyledTextField {...props} />
-);
 
 export default TextField;
