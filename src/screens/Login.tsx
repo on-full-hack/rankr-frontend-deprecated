@@ -8,7 +8,7 @@ import {API} from '../API';
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   background-color: #6236ff;

@@ -26,18 +26,6 @@ const Fields = styled.div`
   flex-direction: column;
 `;
 
-const PaddingBox = styled.div`
-  margin: 2vh 0;
-`;
-
-const Text = styled.div`
-  font-size: 20px;
-  font-family: Courier-new, Courier;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-`;
-
 type Props = {};
 
 type ComponentProps = Props & RouteComponentProps;
