@@ -6,6 +6,7 @@ const TextField = styled.input`
   padding: 10px 5px;
   border: none;
   text-align: center;
+  width: 100%;
   border: 2px solid transparent;
   :focus {
     outline: none;

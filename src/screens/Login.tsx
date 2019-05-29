@@ -1,32 +1,12 @@
 import React, {useState} from 'react';
 import TextField from '../components/TextField';
+import LoginFields from '../components/LoginFields';
+import LoginContainer from '../components/LoginContainer';
 import Button from '../components/Button';
 import styled from 'styled-components';
 import {AppTitle} from '../components/AppTitle';
 import {RouteComponentProps} from 'react-router';
 import {API} from '../API';
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: #6236ff;
-  height: 100%;
-`;
-
-const Fields = styled.div`
-  margin: 15vw 0;
-  width: 80vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const PaddingBox = styled.div`
-  margin: 2vh 0;
-`;
 
 const Text = styled.div`
   font-size: 20px;
@@ -56,35 +36,29 @@ export const Login: React.FC<ComponentProps> = props => {
   };
 
   return (
-    <Container>
+    <LoginContainer>
       <AppTitle>rankr</AppTitle>
-      <Fields>
-        <PaddingBox>
-          <TextField
-            placeholder="Login"
-            value={login}
-            onChange={e => setLogin(e.currentTarget.value)}
-          />
-        </PaddingBox>
-        <PaddingBox>
-          <TextField
-            placeholder="Password"
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.currentTarget.value)}
-          />
-        </PaddingBox>
-        <PaddingBox>
-          <Button onClick={handleLogin}>Sign In</Button>
-        </PaddingBox>
-        <PaddingBox>
-          <Text>or</Text>
-        </PaddingBox>
-        <PaddingBox>
-          <Button onClick={() => props.history.push('/signup')}>Sign Up</Button>
-        </PaddingBox>
-      </Fields>
-    </Container>
+      <LoginFields>
+        <TextField
+          placeholder="Login"
+          value={login}
+          onChange={e => setLogin(e.currentTarget.value)}
+        />
+        <TextField
+          placeholder="Password"
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.currentTarget.value)}
+        />
+        <Button fullWidth onClick={handleLogin}>
+          Sign In
+        </Button>
+        <Text>or</Text>
+        <Button fullWidth onClick={() => props.history.push('/signup')}>
+          Sign Up
+        </Button>
+      </LoginFields>
+    </LoginContainer>
   );
 };
 
