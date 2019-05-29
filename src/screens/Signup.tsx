@@ -46,7 +46,9 @@ export const Signup: React.FC<ComponentProps> = props => {
           value={password}
           onChange={e => setPassword(e.currentTarget.value)}
         />
-        <Button onClick={handleSignup}>Sign Up</Button>
+        <Button secondary fullWidth onClick={handleSignup}>
+          Sign Up
+        </Button>
       </LoginFields>
     </LoginContainer>
   );

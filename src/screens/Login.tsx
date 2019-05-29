@@ -50,11 +50,15 @@ export const Login: React.FC<ComponentProps> = props => {
           value={password}
           onChange={e => setPassword(e.currentTarget.value)}
         />
-        <Button fullWidth onClick={handleLogin}>
+        <Button fullWidth onClick={handleLogin} secondary>
           Sign In
         </Button>
         <Text>or</Text>
-        <Button fullWidth onClick={() => props.history.push('/signup')}>
+        <Button
+          fullWidth
+          onClick={() => props.history.push('/signup')}
+          secondary
+        >
           Sign Up
         </Button>
       </LoginFields>
