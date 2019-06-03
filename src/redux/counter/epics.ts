@@ -1,25 +1,20 @@
 import {Epic} from 'redux-observable';
-import {from, of} from 'rxjs';
-import {switchMap, filter, map, catchError} from 'rxjs/operators';
-import {isActionOf} from 'typesafe-actions';
+import {mergeMap, filter} from 'rxjs/operators';
+import {isActionOf, ActionType} from 'typesafe-actions';
 import Types from 'MyTypes';
 import {setCounterAsync} from './api';
 
 import * as actions from './actions';
 
-const setCounterAsyncEpic: Epic<
-  Types.RootAction,
-  Types.RootAction,
-  Types.RootState
-> = (action$, store) =>
+type Action = ActionType<typeof actions>;
+
+const setCounterAsyncEpic: Epic<Action, Action, Types.RootState> = action$ =>
   action$.pipe(
     filter(isActionOf(actions.incrementAsync)),
-    switchMap(() =>
-      from(setCounterAsync()).pipe(
-        map(actions.incrementAsyncSuccess),
-        catchError(() => of(actions.incrementAsyncFailure()))
-      )
-    )
+    mergeMap(async action => {
+      const number = await setCounterAsync();
+      return actions.incrementAsyncSuccess(number);
+    })
   );
 
 export default [setCounterAsyncEpic];

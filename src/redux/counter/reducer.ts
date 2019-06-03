@@ -15,6 +15,8 @@ export const reducer = (
   switch (action.type) {
     case types.INCREMENT:
       return {...state, counter: state.counter + 1};
+    case types.INCREMENT_ASYNC_SUCCESS:
+      return {...state, counter: action.payload};
     default:
       return state;
   }
