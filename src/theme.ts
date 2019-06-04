@@ -3,7 +3,7 @@ import baseStyled, {ThemedStyledInterface} from 'styled-components';
 export const theme = {
   palette: {
     primary: '#6236ff',
-    secondary: '#ffffff',
+    secondary: '#ff1744',
     focus: '#c2185b'
   }
 };

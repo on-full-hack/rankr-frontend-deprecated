@@ -1,42 +1,13 @@
 import React, {useState} from 'react';
 import TextField from '../components/TextField';
 import Button from '../components/Button';
+import LoginFields from '../components/LoginFields';
+import LoginContainer from '../components/LoginContainer';
 import styled from 'styled-components';
 import {API} from '../API';
 import axios from 'axios';
 import {AppTitle} from '../components/AppTitle';
 import {RouteComponentProps} from 'react-router';
-
-const Container = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: column;
-  background-color: #6236ff;
-  height: 100%;
-`;
-
-const Fields = styled.div`
-  margin: 15vw 0;
-  width: 80vw;
-  height: 25%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const PaddingBox = styled.div`
-  margin: 2vh 0;
-`;
-
-const Text = styled.div`
-  font-size: 20px;
-  font-family: Courier-new, Courier;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-`;
 
 type Props = {};
 
@@ -61,9 +32,9 @@ export const Signup: React.FC<ComponentProps> = props => {
   };
 
   return (
-    <Container>
+    <LoginContainer>
       <AppTitle>rankr</AppTitle>
-      <Fields>
+      <LoginFields>
         <TextField
           placeholder="Login"
           value={login}
@@ -75,9 +46,11 @@ export const Signup: React.FC<ComponentProps> = props => {
           value={password}
           onChange={e => setPassword(e.currentTarget.value)}
         />
-        <Button onClick={handleSignup}>Sign Up</Button>
-      </Fields>
-    </Container>
+        <Button secondary fullWidth onClick={handleSignup}>
+          Sign Up
+        </Button>
+      </LoginFields>
+    </LoginContainer>
   );
 };
 
