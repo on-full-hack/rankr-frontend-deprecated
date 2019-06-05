@@ -1,8 +1,23 @@
-import ButtonMUI from '@material-ui/core/Button';
-import styled from 'styled-components';
+import {styled} from '../theme';
 
-export default styled(ButtonMUI)`
-  background-color: #f50057 !important;
-  height: 48px;
-  color: #fff !important;
+type Props = {
+  fullWidth?: boolean;
+  secondary?: boolean;
+};
+
+export default styled.button<Props>`
+  background-color: ${props =>
+    props.secondary
+      ? props.theme.palette.secondary
+      : props.theme.palette.primary};
+  color: #fff;
+  font-size: 20px;
+  width: ${props => (props.fullWidth ? '100%' : 'unset')};
+  padding: 20px;
+  min-height: 62px;
+  :focus {
+    outline: none;
+  }
+  border: none;
+  border-radius: 2px;
 `;

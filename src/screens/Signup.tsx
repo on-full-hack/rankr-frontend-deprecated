@@ -1,37 +1,33 @@
 import React, {useState} from 'react';
 import TextField from '../components/TextField';
+import Button from '../components/Button';
 import LoginFields from '../components/LoginFields';
 import LoginContainer from '../components/LoginContainer';
-import Button from '../components/Button';
 import styled from 'styled-components';
+import {API} from '../API';
+import axios from 'axios';
 import {AppTitle} from '../components/AppTitle';
 import {RouteComponentProps} from 'react-router';
-import {API} from '../API';
-
-const Text = styled.div`
-  font-size: 20px;
-  font-family: Courier-new, Courier;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-`;
 
 type Props = {};
 
 type ComponentProps = Props & RouteComponentProps;
 
-export const Login: React.FC<ComponentProps> = props => {
+export const Signup: React.FC<ComponentProps> = props => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState('');
 
-  const handleLogin = async () => {
+  const handleSignup = async () => {
     try {
-      const result = await API.login({username: login, password});
-      localStorage.setItem('token', result.headers.authorization);
-      props.history.push('/');
+      const result = await API.signup({username: login, password});
+      console.log('result: ', result);
+      if (result.status === 201) {
+        props.history.push('/login');
+      }
     } catch (err) {
-      setErrorText('Username or password incorrect');
+      console.log(err);
     }
   };
 
@@ -50,15 +46,7 @@ export const Login: React.FC<ComponentProps> = props => {
           value={password}
           onChange={e => setPassword(e.currentTarget.value)}
         />
-        <Button fullWidth onClick={handleLogin} secondary>
-          Sign In
-        </Button>
-        <Text>or</Text>
-        <Button
-          fullWidth
-          onClick={() => props.history.push('/signup')}
-          secondary
-        >
+        <Button secondary fullWidth onClick={handleSignup}>
           Sign Up
         </Button>
       </LoginFields>
@@ -66,4 +54,4 @@ export const Login: React.FC<ComponentProps> = props => {
   );
 };
 
-export default Login;
+export default Signup;
