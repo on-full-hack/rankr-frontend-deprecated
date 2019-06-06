@@ -3,6 +3,7 @@ import {Route, BrowserRouter as Router, Link} from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
 import Counter from './Counter';
+import Leagues from './Leagues';
 import {theme, styled} from '../theme';
 import {ThemeProvider} from 'styled-components';
 
@@ -17,6 +18,7 @@ export const Main: React.FC = () => (
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/counter" component={Counter} />
+        <Route path="/leagues" component={Leagues} />
       </Router>
     </Container>
   </ThemeProvider>
