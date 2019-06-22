@@ -1,4 +1,4 @@
-import {createAction, action} from 'typesafe-actions';
+import {createAction} from 'typesafe-actions';
 import * as types from './constants';
 
 export const increment = createAction(types.INCREMENT);

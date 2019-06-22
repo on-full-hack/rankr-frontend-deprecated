@@ -4,7 +4,9 @@ export const theme = {
   palette: {
     primary: '#6236ff',
     secondary: '#ff1744',
-    focus: '#c2185b'
+    focus: '#c2185b',
+    card: '#ffffff',
+    background: '#ECEFF1'
   }
 };
 
