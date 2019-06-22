@@ -1,11 +1,4 @@
-import axios from 'axios';
-
-// const API_URL = 'http://localhost:4000';
-const API_URL = 'http://192.168.1.12:8080';
-
-const getToken = () => {
-  return localStorage.getItem('token');
-};
+import axios from './lib/axios';
 
 type Credentials = {
   username: string;
@@ -32,108 +25,56 @@ type LeaguePlayerId = {
 
 export const API = {
   signup: ({username, password}: Credentials) =>
-    axios.post(
-      `${API_URL}/sign-up`,
-      {
-        username,
-        password
-      },
-      {
-        headers: {'Content-Type': 'application/json'}
-      }
-    ),
+    axios.post('sign-up', {
+      username,
+      password
+    }),
   login: ({username, password}: Credentials) =>
-    axios.post(
-      `${API_URL}/login`,
-      {
-        username,
-        password
-      },
-      {
-        headers: {'Content-Type': 'application/json'}
-      }
-    ),
+    axios.post(`login`, {
+      username,
+      password
+    }),
   createLeague: async ({
     name,
     description,
     discipline,
     type
   }: League): Promise<League> => {
-    const response = await axios.post(
-      `${API_URL}/leagues`,
-      {
-        name,
-        description,
-        discipline,
-        type
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: getToken()
-        }
-      }
-    );
-
-    return response.data.specificContract;
-  },
-  getAllLeagues: async () => {
-    const response = await axios.get(`${API_URL}/leagues`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: getToken()
-      }
+    const response = await axios.post(`leagues`, {
+      name,
+      description,
+      discipline,
+      type
     });
 
     return response.data.specificContract;
   },
+  getAllLeagues: async () => {
+    const response = await axios.get('leagues');
+    return response.data.specificContract;
+  },
+  getLeagueDetails: async () => {
+    const response = await axios.get(`leagues`);
+    return response.data.specificContract;
+  },
   inviteUserToLeagueAsAdmin: ({userId, leagueId}: LeaguePlayerId) =>
-    axios.post(
-      `${API_URL}/leagues/user`,
-      {
-        userId,
-        leagueId
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: getToken()
-        }
-      }
-    ),
-  joinToLeague: ({leagueId}: {leagueId: number}) =>
-    axios.post(
-      `${API_URL}/leagues/user/join/${leagueId}`,
-      {},
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: getToken()
-        }
-      }
-    ),
-  removeUserFromLeague: ({userId, leagueId}: LeaguePlayerId) =>
-    axios.delete(`${API_URL}/leagues/user/${userId}/league/${leagueId}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: getToken()
-      }
+    axios.post(`leagues/user`, {
+      userId,
+      leagueId
     }),
+
+  joinToLeague: ({leagueId}: {leagueId: number}) =>
+    axios.post(`leagues/user/join/${leagueId}`, {}),
+
+  removeUserFromLeague: ({userId, leagueId}: LeaguePlayerId) =>
+    axios.delete(`leagues/user/${userId}/league/${leagueId}`),
+
   updateLeague: ({id, description, discipline, name, type}: League) =>
-    axios.put(
-      `${API_URL}/leagues`,
-      {
-        id,
-        description,
-        discipline,
-        name,
-        type
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: getToken()
-        }
-      }
-    )
+    axios.put(`leagues`, {
+      id,
+      description,
+      discipline,
+      name,
+      type
+    })
 };
