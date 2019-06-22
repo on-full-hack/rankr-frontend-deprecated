@@ -5,16 +5,21 @@ type Props = {
   secondary?: boolean;
 };
 
-export default styled.button<Props>`
+type PropsAll = Props & React.HTMLProps<HTMLButtonElement>;
+
+export default styled.button<PropsAll>`
   background-color: ${props =>
     props.secondary
       ? props.theme.palette.secondary
       : props.theme.palette.primary};
   color: #fff;
   font-size: 20px;
+  min-height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: ${props => (props.fullWidth ? '100%' : 'unset')};
   padding: 20px;
-  min-height: 62px;
   :focus {
     outline: none;
   }

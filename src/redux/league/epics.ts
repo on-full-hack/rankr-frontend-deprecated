@@ -14,7 +14,8 @@ const createLeagueEpic: Epic<
     filter(isActionOf(actions.createLeague)),
     mergeMap(async action => {
       const league = await API.createLeague(action.payload.league);
-      return actions.createLeagueSuccess();
+      console.log('league: ', league);
+      return actions.createLeagueSuccess(league);
     })
   );
 

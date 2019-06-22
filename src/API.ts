@@ -31,8 +31,8 @@ type LeaguePlayerId = {
 };
 
 export const API = {
-  signup: async ({username, password}: Credentials) =>
-    await axios.post(
+  signup: ({username, password}: Credentials) =>
+    axios.post(
       `${API_URL}/sign-up`,
       {
         username,
@@ -42,8 +42,8 @@ export const API = {
         headers: {'Content-Type': 'application/json'}
       }
     ),
-  login: async ({username, password}: Credentials) =>
-    await axios.post(
+  login: ({username, password}: Credentials) =>
+    axios.post(
       `${API_URL}/login`,
       {
         username,
@@ -53,8 +53,13 @@ export const API = {
         headers: {'Content-Type': 'application/json'}
       }
     ),
-  createLeague: async ({name, description, discipline, type}: League) =>
-    await axios.post(
+  createLeague: async ({
+    name,
+    description,
+    discipline,
+    type
+  }: League): Promise<League> => {
+    const response = await axios.post(
       `${API_URL}/leagues`,
       {
         name,
@@ -68,16 +73,19 @@ export const API = {
           Authorization: getToken()
         }
       }
-    ),
-  getAllLeagues: async () =>
-    await axios.get(`${API_URL}/leagues`, {
+    );
+
+    return response.data.detailsDTO;
+  },
+  getAllLeagues: () =>
+    axios.get(`${API_URL}/leagues`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: getToken()
       }
     }),
-  inviteUserToLeagueAsAdmin: async ({userId, leagueId}: LeaguePlayerId) =>
-    await axios.post(
+  inviteUserToLeagueAsAdmin: ({userId, leagueId}: LeaguePlayerId) =>
+    axios.post(
       `${API_URL}/leagues/user`,
       {
         userId,
@@ -90,8 +98,8 @@ export const API = {
         }
       }
     ),
-  joinToLeague: async ({leagueId}: {leagueId: number}) =>
-    await axios.post(
+  joinToLeague: ({leagueId}: {leagueId: number}) =>
+    axios.post(
       `${API_URL}/leagues/user/join/${leagueId}`,
       {},
       {
@@ -101,15 +109,15 @@ export const API = {
         }
       }
     ),
-  removeUserFromLeague: async ({userId, leagueId}: LeaguePlayerId) =>
-    await axios.delete(`${API_URL}/leagues/user/${userId}/league/${leagueId}`, {
+  removeUserFromLeague: ({userId, leagueId}: LeaguePlayerId) =>
+    axios.delete(`${API_URL}/leagues/user/${userId}/league/${leagueId}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: getToken()
       }
     }),
-  updateLeague: async ({id, description, discipline, name, type}: League) =>
-    await axios.put(
+  updateLeague: ({id, description, discipline, name, type}: League) =>
+    axios.put(
       `${API_URL}/leagues`,
       {
         id,
