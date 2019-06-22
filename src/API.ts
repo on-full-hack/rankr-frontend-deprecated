@@ -75,15 +75,18 @@ export const API = {
       }
     );
 
-    return response.data.detailsDTO;
+    return response.data.specificContract;
   },
-  getAllLeagues: () =>
-    axios.get(`${API_URL}/leagues`, {
+  getAllLeagues: async () => {
+    const response = await axios.get(`${API_URL}/leagues`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: getToken()
       }
-    }),
+    });
+
+    return response.data.specificContract;
+  },
   inviteUserToLeagueAsAdmin: ({userId, leagueId}: LeaguePlayerId) =>
     axios.post(
       `${API_URL}/leagues/user`,

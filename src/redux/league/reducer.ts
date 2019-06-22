@@ -11,6 +11,17 @@ export type LeagueAction = ActionType<typeof actions>;
 
 const defaultState = {all: new Map<number, League>()};
 
+const createMapFromList = (list: League[]): Map<number, League> =>
+  list.reduce(
+    (acc, league) => {
+      if (league.id) {
+        return {...acc, [league.id]: league};
+      }
+      return acc;
+    },
+    {} as Map<number, League>
+  );
+
 export const reducer = (
   state: LeagueState = defaultState,
   action: LeagueAction
@@ -22,6 +33,10 @@ export const reducer = (
         return {...state, all: {...state.all, [league.id]: league}};
       }
       return state;
+    }
+    case types.FETCH_LEAGUES_SUCCESS: {
+      const {leagues} = action.payload;
+      return {...state, all: createMapFromList(leagues)};
     }
     default:
       return state;

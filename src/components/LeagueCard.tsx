@@ -1,9 +1,20 @@
-import {styled} from '../theme';
+import React from 'react';
+import Card from './Card';
+import styled from 'styled-components';
+import {League} from '../API';
 
-export default styled.div`
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
-  border-radius: 4px;
-  background-color: ${props => props.theme.palette.card};
-  padding: 15px;
+type Props = {
+  league: League;
+};
+
+const Title = styled.div`
+  font-size: 20px;
 `;
+
+export const LeagueCard: React.FC<Props> = ({league: {name, discipline}}) => (
+  <Card>
+    <Title>{`${name} - ${discipline}`}</Title>
+  </Card>
+);
+
+export default LeagueCard;

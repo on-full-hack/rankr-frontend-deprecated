@@ -19,4 +19,17 @@ const createLeagueEpic: Epic<
     })
   );
 
-export default [createLeagueEpic];
+const fetchLeaguesEpic: Epic<
+  Types.RootAction,
+  Types.RootAction,
+  Types.RootState
+> = action$ =>
+  action$.pipe(
+    filter(isActionOf(actions.fetchLeagues)),
+    mergeMap(async action => {
+      const leagues = await API.getAllLeagues();
+      return actions.fetchLeaguesSuccess(leagues);
+    })
+  );
+
+export default [createLeagueEpic, fetchLeaguesEpic];
