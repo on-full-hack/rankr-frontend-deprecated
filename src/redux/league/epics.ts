@@ -32,6 +32,20 @@ const fetchLeaguesEpic: Epic<
     })
   );
 
+const fetchLeagueDetailsEpic: Epic<
+  Types.RootAction,
+  Types.RootAction,
+  Types.RootState
+> = action$ =>
+  action$.pipe(
+    filter(isActionOf(actions.fetchLeagueDetails)),
+    mergeMap(async action => {
+      console.log(' in epic');
+      const leagueDetails = await API.getLeagueDetails();
+      return actions.fetchLeagueDetailsSuccess(leagueDetails);
+    })
+  );
+
 const jointoLeagueEpic: Epic<
   Types.RootAction,
   Types.RootAction,
@@ -45,4 +59,9 @@ const jointoLeagueEpic: Epic<
     })
   );
 
-export default [createLeagueEpic, fetchLeaguesEpic, jointoLeagueEpic];
+export default [
+  createLeagueEpic,
+  fetchLeaguesEpic,
+  fetchLeagueDetailsEpic,
+  jointoLeagueEpic
+];
