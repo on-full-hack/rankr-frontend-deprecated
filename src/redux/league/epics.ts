@@ -41,7 +41,8 @@ const fetchLeagueDetailsEpic: Epic<
     filter(isActionOf(actions.fetchLeagueDetails)),
     mergeMap(async action => {
       console.log(' in epic');
-      const leagueDetails = await API.getLeagueDetails();
+      const leagueDetails = await API.getLeagueDetails(action.payload.id);
+      console.log('leagueDetails: ', leagueDetails);
       return actions.fetchLeagueDetailsSuccess(leagueDetails);
     })
   );

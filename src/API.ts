@@ -47,7 +47,7 @@ export const API = {
     description,
     discipline,
     type
-  }: League): Promise<League> => {
+  }: LeagueData): Promise<League> => {
     const response = await axios.post(`leagues`, {
       name,
       description,
@@ -61,8 +61,8 @@ export const API = {
     const response = await axios.get('leagues');
     return response.data.specificContract;
   },
-  getLeagueDetails: async () => {
-    const response = await axios.get(`leagues`);
+  getLeagueDetails: async (id: number) => {
+    const response = await axios.get(`leagues/${id}`);
     return response.data.specificContract;
   },
   inviteUserToLeagueAsAdmin: ({userId, leagueId}: LeaguePlayerId) =>

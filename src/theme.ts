@@ -7,6 +7,12 @@ export enum FontSizeEnum {
   LARGE
 }
 
+export enum PaddingEnum {
+  DEFAULT,
+  SMALL,
+  LARGE
+}
+
 export const theme = {
   palette: {
     primary: '#6236ff',
@@ -20,6 +26,11 @@ export const theme = {
     [FontSizeEnum.SMALL]: '12px',
     [FontSizeEnum.MEDIUM]: '16px',
     [FontSizeEnum.LARGE]: '24px'
+  },
+  padding: {
+    [PaddingEnum.DEFAULT]: '20px',
+    [PaddingEnum.SMALL]: '10px',
+    [PaddingEnum.LARGE]: '30px'
   }
 };
 

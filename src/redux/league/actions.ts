@@ -1,6 +1,6 @@
 import {createAction} from 'typesafe-actions';
 import * as types from './types';
-import {League, LeagueData} from '../../API';
+import {League, LeagueData, LeagueDetails} from '../../API';
 
 export const createLeague = createAction(
   types.CREATE_LEAGUE,

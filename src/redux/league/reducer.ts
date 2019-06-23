@@ -44,6 +44,7 @@ export const reducer = (
       const {
         leagueDetails: {matches, players, ...league}
       } = action.payload;
+      console.log('league', league);
       return {
         ...state,
         all: {...state.all, [league.id]: league},
