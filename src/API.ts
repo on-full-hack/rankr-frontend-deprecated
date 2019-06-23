@@ -18,6 +18,11 @@ export type League = {
   type: LeagueTypes;
 };
 
+export type LeagueDetails = {
+  players: string[];
+  matches: string[];
+} & League;
+
 type LeaguePlayerId = {
   userId: number;
   leagueId: number;

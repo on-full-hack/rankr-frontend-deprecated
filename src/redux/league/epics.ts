@@ -32,4 +32,18 @@ const fetchLeaguesEpic: Epic<
     })
   );
 
-export default [createLeagueEpic, fetchLeaguesEpic];
+const fetchLeagueDetailsEpic: Epic<
+  Types.RootAction,
+  Types.RootAction,
+  Types.RootState
+> = action$ =>
+  action$.pipe(
+    filter(isActionOf(actions.fetchLeagueDetails)),
+    mergeMap(async action => {
+      console.log(' in epic');
+      const leagueDetails = await API.getLeagueDetails();
+      return actions.fetchLeagueDetailsSuccess(leagueDetails);
+    })
+  );
+
+export default [createLeagueEpic, fetchLeaguesEpic, fetchLeagueDetailsEpic];
