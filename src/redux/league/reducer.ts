@@ -5,11 +5,13 @@ import {League} from '../../API';
 
 export type LeagueState = {
   all: Map<number, League>;
+  matches: string[];
+  players: string[];
 };
 
 export type LeagueAction = ActionType<typeof actions>;
 
-const defaultState = {all: new Map<number, League>()};
+const defaultState = {all: new Map<number, League>(), players: [], matches: []};
 
 const createMapFromList = (list: League[]): Map<number, League> =>
   list.reduce(
@@ -37,6 +39,17 @@ export const reducer = (
     case types.FETCH_LEAGUES_SUCCESS: {
       const {leagues} = action.payload;
       return {...state, all: createMapFromList(leagues)};
+    }
+    case types.FETCH_LEAGUE_DETAILS_SUCCESS: {
+      const {
+        leagueDetails: {matches, players, ...league}
+      } = action.payload;
+      return {
+        ...state,
+        all: {...state.all, [league.id]: league},
+        matches: {...state.matches, ...matches},
+        players: {...state.players, ...players}
+      };
     }
     default:
       return state;

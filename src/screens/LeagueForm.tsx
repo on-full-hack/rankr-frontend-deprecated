@@ -4,11 +4,11 @@ import {connect} from 'react-redux';
 import Button from '../components/Button';
 import SelectOptionField from '../components/SelectOptionField';
 import SelectField from '../components/SelectField';
-import {API, LeagueTypes, League} from '../API';
+import {LeagueTypes, LeagueData} from '../API';
 import {createLeague} from '../redux/league/actions';
 
 type Props = {
-  onCreate: (league: League) => void;
+  onCreate: (league: LeagueData) => void;
 };
 
 export const LeagueForm: React.FC<Props> = ({onCreate}) => {
@@ -54,7 +54,6 @@ export const LeagueForm: React.FC<Props> = ({onCreate}) => {
       <Button
         fullWidth
         onClick={() => {
-          console.log('onCreate');
           onCreate({name, discipline, description, type});
         }}
         secondary
