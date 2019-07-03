@@ -6,6 +6,7 @@ import {fetchLeagueDetails} from '../redux/league/actions';
 import {RootState} from 'MyTypes';
 import {League} from '../API';
 import {getById} from '../redux/league/selectors';
+import CardButton from '../components/CardButton';
 
 type RouteInfo = {
   id: string;
@@ -24,8 +25,9 @@ const LeagueView: React.FC<Props> = props => {
   if (!props.league) return <div>loading...</div>;
 
   return (
-    <Layout>
-      <div>{props.league.name}</div>>
+    <Layout title={props.league.name}>
+      <CardButton onClick={() => {}} label="Add match" />
+      <CardButton onClick={() => {}} label="Invite friends" />
     </Layout>
   );
 };

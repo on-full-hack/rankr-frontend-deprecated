@@ -6,4 +6,5 @@ export default styled.div`
   border-radius: 4px;
   background-color: ${props => props.theme.palette.card};
   padding: 15px;
+  margin: 2px;
 `;
