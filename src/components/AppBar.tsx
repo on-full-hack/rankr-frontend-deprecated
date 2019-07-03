@@ -1,8 +1,12 @@
 import * as React from 'react';
 import AppTitle from './AppTitle';
 
-export const AppBar = () => (
+type Props = {
+  title?: string;
+};
+
+export const AppBar: React.FC<Props> = ({title = 'Rankr'}) => (
   <div>
-    <AppTitle primary>Rankr</AppTitle>
+    <AppTitle primary>{title}</AppTitle>
   </div>
 );

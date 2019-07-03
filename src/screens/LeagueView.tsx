@@ -5,6 +5,8 @@ import {RouteComponentProps} from 'react-router';
 import {fetchLeagueDetails} from '../redux/league/actions';
 import {RootState} from 'MyTypes';
 import {League} from '../API';
+import {getById} from '../redux/league/selectors';
+import CardButton from '../components/CardButton';
 
 type RouteInfo = {
   id: string;
@@ -16,7 +18,6 @@ type Props = {
 } & RouteComponentProps<RouteInfo>;
 
 const LeagueView: React.FC<Props> = props => {
-  console.log('props: ', props);
   React.useEffect(() => {
     props.onFetchLeagueDetails(parseInt(props.match.params.id));
   }, []);
@@ -24,8 +25,9 @@ const LeagueView: React.FC<Props> = props => {
   if (!props.league) return <div>loading...</div>;
 
   return (
-    <Layout>
-      <div>{props.league.name}</div>>
+    <Layout title={props.league.name}>
+      <CardButton onClick={() => {}} label="Add match" />
+      <CardButton onClick={() => {}} label="Invite friends" />
     </Layout>
   );
 };
@@ -35,7 +37,7 @@ const dispatchProps = {
 };
 
 const mapDispatchToProps = (state: RootState, ownProps: Props) => ({
-  league: state.leagues.all.get(parseInt(ownProps.match.params.id))
+  league: getById(state, parseInt(ownProps.match.params.id))
 });
 
 export default connect(
