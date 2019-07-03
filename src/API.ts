@@ -73,6 +73,9 @@ export const API = {
 
   joinToLeague: (id: number) => axios.post(`leagues/user/join/${id}`, {}),
 
+  joinToLeagueByLink: (code: string) =>
+    axios.post(`leagues/user/join/link/${code}`, {}),
+
   removeUserFromLeague: ({userId, leagueId}: LeaguePlayerId) =>
     axios.delete(`leagues/user/${userId}/league/${leagueId}`),
 
