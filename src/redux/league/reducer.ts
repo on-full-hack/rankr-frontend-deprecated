@@ -4,25 +4,22 @@ import * as types from './types';
 import {League} from '../../API';
 
 export type LeagueState = {
-  all: Map<number, League>;
+  all: {[id: string]: League};
   matches: string[];
   players: string[];
 };
 
 export type LeagueAction = ActionType<typeof actions>;
 
-const defaultState = {all: new Map<number, League>(), players: [], matches: []};
+const defaultState = {all: {}, players: [], matches: []};
 
-const createMapFromList = (list: League[]): Map<number, League> =>
-  list.reduce(
-    (acc, league) => {
-      if (league.id) {
-        return {...acc, [league.id]: league};
-      }
-      return acc;
-    },
-    {} as Map<number, League>
-  );
+const createMapFromList = (list: League[]): {[id: number]: League} =>
+  list.reduce((acc, league) => {
+    if (league.id) {
+      return {...acc, [league.id]: league};
+    }
+    return acc;
+  }, {});
 
 export const reducer = (
   state: LeagueState = defaultState,
