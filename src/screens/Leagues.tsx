@@ -14,7 +14,6 @@ type Props = {
 };
 
 const Leagues: React.FC<Props> = ({leagues = [], onFetchLeagues}) => {
-  console.log('leagues: ', leagues);
   React.useEffect(() => {
     onFetchLeagues();
   }, []);
