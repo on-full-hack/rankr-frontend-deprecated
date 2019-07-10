@@ -11,6 +11,7 @@ import {login} from '../redux/login/actions';
 import {RootState} from 'MyTypes';
 import {Error} from '../lib/types';
 import ErrorToast from '../components/ErrorToast';
+import {push} from 'connected-react-router';
 
 const Text = styled.div`
   font-size: 20px;
@@ -23,6 +24,7 @@ const Text = styled.div`
 interface Props {
   onLogin: (username: string, password: string) => void;
   error: Error | null;
+  push: (path: string) => void;
 }
 
 type ComponentProps = Props & RouteComponentProps;
@@ -54,11 +56,7 @@ export const Login: React.FC<ComponentProps> = props => {
           Sign In
         </Button>
         <Text>or</Text>
-        <Button
-          fullWidth
-          onClick={() => props.history.push('/signup')}
-          secondary
-        >
+        <Button fullWidth onClick={() => props.push('/signup')} secondary>
           Sign Up
         </Button>
       </LoginFields>
@@ -68,7 +66,8 @@ export const Login: React.FC<ComponentProps> = props => {
 };
 
 const dispatchProps = {
-  onLogin: login
+  onLogin: login,
+  push
 };
 
 const mapDispatchToProps = (state: RootState) => ({
