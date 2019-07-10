@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import LeagueCard from '../components/LeagueCard';
 import Layout from '../components/Layout';
 import Types from 'MyTypes';
+import {RouteComponentProps} from 'react-router';
 import {League} from '../API';
 import {getLeagues} from '../redux/league/selectors';
 import {fetchLeagues} from '../redux/league/actions';
@@ -13,7 +14,13 @@ type Props = {
   onFetchLeagues: () => void;
 };
 
-const Leagues: React.FC<Props> = ({leagues = [], onFetchLeagues}) => {
+type AllProps = Props & RouteComponentProps;
+
+const Leagues: React.FC<AllProps> = ({
+  leagues = [],
+  onFetchLeagues,
+  history
+}) => {
   React.useEffect(() => {
     onFetchLeagues();
   }, []);
@@ -21,7 +28,11 @@ const Leagues: React.FC<Props> = ({leagues = [], onFetchLeagues}) => {
   return (
     <Layout>
       {leagues.map(league => (
-        <LeagueCard key={league.id} league={league} />
+        <LeagueCard
+          key={league.id}
+          league={league}
+          onClick={() => history.push(`/league/${league.id}`)}
+        />
       ))}
     </Layout>
   );
