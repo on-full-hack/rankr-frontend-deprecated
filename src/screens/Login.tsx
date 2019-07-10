@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import TextField from '../components/TextField';
 import LoginFields from '../components/LoginFields';
 import LoginContainer from '../components/LoginContainer';
@@ -6,7 +7,7 @@ import Button from '../components/Button';
 import styled from 'styled-components';
 import {AppTitle} from '../components/AppTitle';
 import {RouteComponentProps} from 'react-router';
-import {API} from '../API';
+import {login} from '../redux/login/actions';
 
 const Text = styled.div`
   font-size: 20px;
@@ -16,24 +17,15 @@ const Text = styled.div`
   justify-content: center;
 `;
 
-type Props = {};
+type Props = {
+  onLogin: (username: string, password: string) => void;
+};
 
 type ComponentProps = Props & RouteComponentProps;
 
 export const Login: React.FC<ComponentProps> = props => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [errorText, setErrorText] = useState('');
-
-  const handleLogin = async () => {
-    try {
-      const result = await API.login({username: login, password});
-      localStorage.setItem('token', result.headers.authorization);
-      props.history.push('/');
-    } catch (err) {
-      setErrorText('Username or password incorrect');
-    }
-  };
 
   return (
     <LoginContainer>
@@ -50,7 +42,11 @@ export const Login: React.FC<ComponentProps> = props => {
           value={password}
           onChange={e => setPassword(e.currentTarget.value)}
         />
-        <Button fullWidth onClick={handleLogin} secondary>
+        <Button
+          fullWidth
+          onClick={() => props.onLogin(login, password)}
+          secondary
+        >
           Sign In
         </Button>
         <Text>or</Text>
@@ -66,4 +62,11 @@ export const Login: React.FC<ComponentProps> = props => {
   );
 };
 
-export default Login;
+const dispatchProps = {
+  onLogin: login
+};
+
+export default connect(
+  null,
+  dispatchProps
+)(Login);
