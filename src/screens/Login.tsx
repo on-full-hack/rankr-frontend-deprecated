@@ -8,6 +8,9 @@ import styled from 'styled-components';
 import {AppTitle} from '../components/AppTitle';
 import {RouteComponentProps} from 'react-router';
 import {login} from '../redux/login/actions';
+import {RootState} from 'MyTypes';
+import {Error} from '../lib/types';
+import ErrorToast from '../components/ErrorToast';
 
 const Text = styled.div`
   font-size: 20px;
@@ -17,9 +20,10 @@ const Text = styled.div`
   justify-content: center;
 `;
 
-type Props = {
+interface Props {
   onLogin: (username: string, password: string) => void;
-};
+  error: Error | null;
+}
 
 type ComponentProps = Props & RouteComponentProps;
 
@@ -58,6 +62,7 @@ export const Login: React.FC<ComponentProps> = props => {
           Sign Up
         </Button>
       </LoginFields>
+      {props.error && <ErrorToast>{props.error.message}</ErrorToast>}
     </LoginContainer>
   );
 };
@@ -66,7 +71,11 @@ const dispatchProps = {
   onLogin: login
 };
 
+const mapDispatchToProps = (state: RootState) => ({
+  error: state.login.error
+});
+
 export default connect(
-  null,
+  mapDispatchToProps,
   dispatchProps
 )(Login);
