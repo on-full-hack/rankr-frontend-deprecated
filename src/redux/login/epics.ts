@@ -1,6 +1,8 @@
 import {Epic} from 'redux-observable';
 import {isActionOf} from 'typesafe-actions';
-import {mergeMap, filter} from 'rxjs/operators';
+import {mergeMap, filter, catchError} from 'rxjs/operators';
+import {push} from 'connected-react-router';
+import {of} from 'rxjs';
 import Types from 'MyTypes';
 import * as actions from './actions';
 import {API} from '../../API';
@@ -12,19 +14,21 @@ const loginEpic: Epic<
 > = action$ =>
   action$.pipe(
     filter(isActionOf(actions.login)),
-    mergeMap(async action => {
-      const {payload} = action;
-      try {
-        const response = await API.login(payload);
-        localStorage.setItem('token', response.headers.authorization);
-      } catch (error) {
-        return actions.loginError({
-          code: 'invalid-credentials',
-          message: 'Invalid credentials'
-        });
-      }
-      return actions.loginSuccess('abaisdb');
-    })
+    mergeMap(action =>
+      of(API.login(action.payload)).pipe(
+        mergeMap(response => {
+          return of(actions.loginSuccess(), push('/'));
+        }),
+        catchError(error => {
+          return of(
+            actions.loginError({
+              code: 'invalid-credentials',
+              message: 'Invalid credentials'
+            })
+          );
+        })
+      )
+    )
   );
 
 export default [loginEpic];

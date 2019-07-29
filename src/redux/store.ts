@@ -1,10 +1,14 @@
 import {RootAction, RootState} from 'MyTypes';
+import {createBrowserHistory} from 'history';
+import {routerMiddleware} from 'connected-react-router';
 import {createStore, applyMiddleware, compose} from 'redux';
-import rootReducer from './rootReducer';
+import {createRootReducer} from './rootReducer';
 import {createEpicMiddleware} from 'redux-observable';
 import epics from './rootEpics';
 
 const initialStore = {};
+
+export const history = createBrowserHistory();
 
 declare global {
   interface Window {
@@ -21,8 +25,14 @@ const epicMiddleware = createEpicMiddleware<
   RootState
 >();
 
-const enhancer = composeEnhancers(applyMiddleware(epicMiddleware));
+const enhancer = composeEnhancers(
+  applyMiddleware(epicMiddleware, routerMiddleware(history))
+);
 
-export const store = createStore(rootReducer, initialStore, enhancer);
+export const store = createStore(
+  createRootReducer(history),
+  initialStore,
+  enhancer
+);
 
 epicMiddleware.run(epics);

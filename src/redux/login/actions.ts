@@ -8,10 +8,7 @@ export const login = createAction(
     resolve({username, password})
 );
 
-export const loginSuccess = createAction(
-  types.LOGIN_SUCCESS,
-  resolve => (name: string) => resolve({name})
-);
+export const loginSuccess = createAction(types.LOGIN_SUCCESS);
 
 export const loginError = createAction(
   types.LOGIN_ERROR,

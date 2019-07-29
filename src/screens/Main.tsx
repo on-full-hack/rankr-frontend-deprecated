@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, BrowserRouter as Router, Link} from 'react-router-dom';
+import {Route, Router, Link} from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
 import Counter from './Counter';
@@ -10,6 +10,7 @@ import {ThemeProvider} from 'styled-components';
 import LeagueView from './LeagueView';
 import LeagueJoinByLink from './LeagueJoinByLink';
 import Dashboard from './Dashboard';
+import {history} from '../redux/store';
 
 const Container = styled.div`
   height: 100vh;
@@ -18,7 +19,7 @@ const Container = styled.div`
 export const Main: React.FC = () => (
   <ThemeProvider theme={theme}>
     <Container>
-      <Router>
+      <Router history={history}>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/" component={Dashboard} />
