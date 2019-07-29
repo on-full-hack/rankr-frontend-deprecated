@@ -8,6 +8,7 @@ import LeagueForm from './LeagueForm';
 import {theme, styled} from '../theme';
 import {ThemeProvider} from 'styled-components';
 import LeagueView from './LeagueView';
+import LeagueJoinByLink from './LeagueJoinByLink';
 import Dashboard from './Dashboard';
 
 const Container = styled.div`
@@ -24,7 +25,8 @@ export const Main: React.FC = () => (
         <Route path="/counter" component={Counter} />
         <Route path="/leagues" component={Leagues} />
         <Route path="/create-league" component={LeagueForm} />
-        <Route path="/league/:id" component={LeagueView} />
+        <Route path="/league/:id" exact component={LeagueView} />
+        <Route path="/league/join/link/:code" component={LeagueJoinByLink} />
       </Router>
     </Container>
   </ThemeProvider>

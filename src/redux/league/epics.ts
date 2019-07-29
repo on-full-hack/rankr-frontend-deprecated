@@ -55,7 +55,24 @@ const jointoLeagueEpic: Epic<
   action$.pipe(
     filter(isActionOf(actions.joinToLeague)),
     mergeMap(async action => {
-      await API.joinToLeague(action.payload.id);
+      const response = await API.joinToLeague(action.payload.id);
+      if (response.status === 201) {
+        return actions.joinToLeagueSuccess();
+      }
+
+      return actions.joinToLeagueError();
+    })
+  );
+
+const joinToLeagueByLinkEpic: Epic<
+  Types.RootAction,
+  Types.RootAction,
+  Types.RootState
+> = action$ =>
+  action$.pipe(
+    filter(isActionOf(actions.joinToLeagueByLink)),
+    mergeMap(async action => {
+      await API.joinToLeagueByLink(action.payload.code);
       return actions.joinToLeagueSuccess();
     })
   );
@@ -64,5 +81,6 @@ export default [
   createLeagueEpic,
   fetchLeaguesEpic,
   fetchLeagueDetailsEpic,
-  jointoLeagueEpic
+  jointoLeagueEpic,
+  joinToLeagueByLinkEpic
 ];
