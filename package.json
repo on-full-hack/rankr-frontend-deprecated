@@ -9,7 +9,7 @@
     "@types/react-dom": "^16.8.2",
     "@types/react-router-dom": "^4.3.1",
     "@types/styled-components": "^4.1.15",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "connected-react-router": "^6.3.1",
     "react": "16.8.6",
     "react-dom": "16.8.6",
